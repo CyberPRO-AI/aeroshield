@@ -12,8 +12,10 @@ type ContactFormProps = {
 }
 
 // Field list/names/order are intentionally hardcoded here (not CMS content) —
-// they must stay in sync with the static "ghost" form Netlify's build-time
-// HTML parser detects; only the copy strings are editable via Sanity.
+// they must stay in sync with public/__forms.html, the static file Netlify's
+// build-time parser scans for form detection under the v5 Next.js Runtime
+// (the live App Router page's rendered HTML is no longer scanned directly).
+// Only the copy strings are editable via Sanity.
 export function ContactForm({ successMessage, errorMessage, contactEmail }: ContactFormProps) {
   const [status, setStatus] = useState<FormStatus>('idle')
 
@@ -44,8 +46,6 @@ export function ContactForm({ successMessage, errorMessage, contactEmail }: Cont
     <form
       name="briefing-request"
       method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       action="/"
       onSubmit={handleSubmit}
       className="as-contact-form"
